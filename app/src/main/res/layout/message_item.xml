@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingTop="8dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="8dp">
+
+    <!--左侧头像-->
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/message_item_portrait_left"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="10dp"
+        android:visibility="visible" />
+
+    <!--右侧头像-->
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/message_item_portrait_right"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/message_item_name_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/message_item_portrait_left"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <!--左侧昵称-->
+        <TextView
+            android:id="@+id/message_item_nickname_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:maxWidth="160dip"
+            android:singleLine="true"
+            android:text="昵称"
+            android:textColor="#FF909090"
+            android:textSize="12sp"
+            android:visibility="visible" />
+        <!--时间-->
+        <TextView
+            android:id="@+id/message_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:includeFontPadding="false"
+            android:text="昨天 17:59"
+            android:textColor="#FFCDD0D3"
+            android:textSize="12sp"
+            android:visibility="visible" />
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_toLeftOf="@id/message_item_portrait_right"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!--时间-->
+        <TextView
+            android:id="@+id/message_item_time2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:includeFontPadding="false"
+            android:text="昨天 17:59"
+            android:textColor="#FFCDD0D3"
+            android:textSize="12sp"
+            android:visibility="visible" />
+
+        <!--右侧昵称-->
+        <TextView
+            android:id="@+id/message_item_nickname_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:maxWidth="160dip"
+            android:singleLine="true"
+            android:text="昵称"
+            android:textColor="#FF909090"
+            android:textSize="12sp"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/message_item_name_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/message_item_portrait_left"
+        android:background="@android:color/transparent"
+        android:gravity="center">
+w
+        <!--左侧接收标记-->
+        <TextView
+            android:id="@+id/tv_receipt_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="1dp"
+            android:text="左边边消息"
+            android:background="@mipmap/bubble_left"
+            android:textSize="12sp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/message_item_name_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:layout_toLeftOf="@id/message_item_portrait_right"
+        android:background="@android:color/transparent"
+        android:gravity="center">
+        <!--右侧接收标记-->
+        <TextView
+            android:id="@+id/tv_receipt_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="5dp"
+            android:background="@mipmap/bubble_right"
+            android:text="右边消息"
+            android:textSize="12sp"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</RelativeLayout>

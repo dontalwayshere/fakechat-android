@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#2D3134</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorText">#353535</color>
+    <color name="colorActionBar">#393a3f</color>
+    <color name="colorActionBarPopPressed">#323136</color>
+    <color name="colorActionBarPopDivider">#1a1b1f</color>
+    <color name="colorHintText">#e1e1e1</color>
+    <color name="colorWeChatGreen">#09BB07</color>
+    <color name="colorWeChatDarkGreen">#16a514</color>
+    <color name="colorActionBarRightUnableText">#69966d</color>
+    <color name="colorWeChatVeryDarkGreen">#2d6830</color>
+    <color name="colorWeChatBtnStroke">#3f823d</color>
+    <color name="colorWeChatGreyGreen">#a2dca2</color>
+    <color name="colorLoginDisableText">#bceeb9</color>
+    <color name="colorAttentionBlue">#506195</color>
+    <color name="colorBottomDivider">#dadada</color>
+    <color name="colorBottomTitleText">#999999</color>
+    <color name="colorBackgroundGrey">#ebebeb</color>
+    <color name="colorMineDivider">#d9d9d9</color>
+    <color name="colorNotificationRed">#ff3f3e</color>
+    <color name="colorActionBarDivider">#2e2d32</color>
+    <color name="colorActionBarBtnPressed">#2e2d32</color>
+    <color name="colorDialogText">#636363</color>
+
+    <!--对话框-->
+    <color name="closeDialogStorkColor">#d8d2d4</color>
+    <color name="closeDialogBackground">#45000000</color>
+
+    <color name="colorContactHeadText">#888888</color>
+    <color name="colorContactHeadBg">#ebebeb</color>
+</resources>
