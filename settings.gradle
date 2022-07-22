@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "fakechat"
 include ':app'
+include ':library'
