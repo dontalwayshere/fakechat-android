@@ -104,6 +104,8 @@ public abstract class BodyRequest<T extends BodyRequest<?>> extends HttpRequest<
         super.request(listener);
     }
 
+
+
     @Override
     protected void addHttpParams(HttpParams params, String key, Object value, BodyType bodyType) {
         switch (bodyType) {

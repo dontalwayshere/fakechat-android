@@ -20,6 +20,10 @@ public class RequestApi implements IRequestApi {
         mApi = api;
     }
 
+    public RequestApi(String api,Object obj) {
+        mApi = api;
+    }
+
     @NonNull
     @Override
     public String getApi() {
@@ -31,4 +35,6 @@ public class RequestApi implements IRequestApi {
     public String toString() {
         return mApi;
     }
+
+
 }

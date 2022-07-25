@@ -1,24 +1,25 @@
 package com.fakechat.practice.service;
 
 
-import com.fakechat.practice.adapter.ContactListAdapter;
-import com.fakechat.practice.model.Friend;
 import com.fakechat.practice.service.config.Config;
 import com.fakechat.practice.service.message.ChatRequestMessage;
 import com.fakechat.practice.service.message.ChatResponseMessage;
-import com.fakechat.practice.service.message.GroupChatRequestMessage;
 import com.fakechat.practice.service.message.GroupChatResponseMessage;
-import com.fakechat.practice.service.message.GroupCreateRequestMessage;
-import com.fakechat.practice.service.message.GroupJoinRequestMessage;
-import com.fakechat.practice.service.message.GroupMembersRequestMessage;
-import com.fakechat.practice.service.message.GroupQuitRequestMessage;
 import com.fakechat.practice.service.message.LoginRequestMessage;
 import com.fakechat.practice.service.message.LoginResponseMessage;
 import com.fakechat.practice.service.protocol.MessageCodecSharable;
 import com.fakechat.practice.service.protocol.ProcotolFrameDecoder;
 
+import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelDuplexHandler;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -27,10 +28,6 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
-
-import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class IMClient {

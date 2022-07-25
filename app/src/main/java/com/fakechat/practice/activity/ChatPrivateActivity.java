@@ -18,25 +18,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.fakechat.practice.R;
 import com.fakechat.practice.adapter.MsgListAdapter;
 import com.fakechat.practice.adapter.MsgListItem;
-import com.fakechat.practice.api.LoginApi;
 import com.fakechat.practice.api.SavePMsgApi;
+import com.fakechat.practice.config.ApiConstans;
 import com.fakechat.practice.config.MsgType;
 import com.fakechat.practice.model.Pmsg;
 import com.fakechat.practice.service.IMClient;
 import com.fakechat.practice.utils.StringUtil;
 import com.fakechat.practice.utils.TimeUtil;
-import com.fakechat.practice.utils.ToastUtil;
 import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class ChatPrivateActivity extends BaseActivity implements View.OnClickListener {
@@ -177,15 +174,14 @@ public class ChatPrivateActivity extends BaseActivity implements View.OnClickLis
         pmsg.setCreatTime(TimeUtil.dateLong2String());
 
         EasyHttp.post(this)
-                .api(new SavePMsgApi()
-                        .setParams(JSON.parseObject(JSON.toJSONString(pmsg), HashMap.class)))
+                .api(ApiConstans.SAVEPMSG)
                 .request(new HttpCallback<String>(null) {
                     @Override
                     public void onSucceed(String result) {
                         System.out.println(result);
 
                     }
-                });
+                },pmsg);
 
 
 
@@ -205,3 +201,19 @@ public class ChatPrivateActivity extends BaseActivity implements View.OnClickLis
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

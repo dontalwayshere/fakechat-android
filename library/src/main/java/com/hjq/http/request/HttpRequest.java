@@ -202,6 +202,11 @@ public abstract class HttpRequest<T extends HttpRequest<?>> {
         return (T) this;
     }
 
+    public  T setParams(Object obj) {
+
+        return  (T) this;
+    }
+
     /**
      * 创建连接对象
      */
@@ -298,6 +303,100 @@ public abstract class HttpRequest<T extends HttpRequest<?>> {
         return mRequestClient.getOkHttpClient().newCall(request);
     }
 
+
+    @NonNull
+    protected Call createCall(Object obj) {
+
+        BodyType type = mRequestType.getBodyType();
+
+        HttpParams params = new HttpParams();
+        HttpHeaders headers = new HttpHeaders();
+
+        // 反射获取类的所有字段
+        List<Field> fields = EasyUtils.getAllFields(obj.getClass());
+
+        // 当前请求是否存在流参数
+        params.setMultipart(EasyUtils.isMultipartParameter(fields));
+
+        // 如果参数中包含流参数并且当前请求方式不是表单的话
+        if (params.isMultipart() && type != BodyType.FORM) {
+            // 就强制设置成以表单形式提交参数
+            type = BodyType.FORM;
+        }
+
+        for (Field field : fields) {
+            // 允许访问私有字段
+            field.setAccessible(true);
+
+            if (EasyUtils.isConstantField(field)) {
+                continue;
+            }
+
+            try {
+                // 获取字段的对象
+                Object value = field.get(obj);
+
+                // 获取字段的名称
+                String key;
+                HttpRename annotation = field.getAnnotation(HttpRename.class);
+                if (annotation != null) {
+                    key = annotation.value();
+                } else {
+                    key = field.getName();
+                    // 如果是内部类则会出现一个字段名为 this$0 的外部类对象，会导致无限递归
+                    // 这里要忽略掉，如果使用静态内部类则不会出现这个问题
+                    // 另外还要规避 Kotlin 自动生成的伴生对象：
+                    // https://github.com/getActivity/EasyHttp/issues/15
+                    if (key.matches("this\\$\\d+") || "Companion".equals(key)) {
+                        continue;
+                    }
+                }
+
+                // 如果这个字段需要忽略，则进行忽略
+                if (field.isAnnotationPresent(HttpIgnore.class)) {
+                    if (field.isAnnotationPresent(HttpHeader.class)) {
+                        headers.remove(key);
+                    } else {
+                        params.remove(key);
+                    }
+                    continue;
+                }
+
+                // 前提是这个字段值不能为空（基本数据类型有默认的值，而对象默认的值为 null）
+                if (value == null) {
+                    // 遍历下一个字段
+                    continue;
+                }
+
+                // 如果这是一个请求头参数
+                if (field.isAnnotationPresent(HttpHeader.class)) {
+                    addHttpHeaders(headers, key, value);
+                    continue;
+                }
+
+                addHttpParams(params, key, value, type);
+
+            } catch (IllegalAccessException e) {
+                EasyLog.printThrowable(this, e);
+            }
+        }
+
+        String url = mRequestHost.getHost() + mRequestApi.getApi();
+        if (mRequestInterceptor != null) {
+            mRequestInterceptor.interceptArguments(this, params, headers);
+        }
+
+        Request request = createRequest(url, mTag, params, headers, type);
+
+        if (mRequestInterceptor != null) {
+            request = mRequestInterceptor.interceptRequest(this, request);
+        }
+        if (request == null) {
+            throw new NullPointerException("The request object cannot be empty");
+        }
+        return mRequestClient.getOkHttpClient().newCall(request);
+    }
+
     /**
      * 执行异步请求
      */
@@ -325,6 +424,32 @@ public abstract class HttpRequest<T extends HttpRequest<?>> {
 
         }, mDelayMillis);
     }
+
+    public void request(OnHttpListener<?> listener,Object obj) {
+        if (mDelayMillis > 0) {
+            // 打印请求延迟时间
+            EasyLog.printKeyValue(this, "RequestDelay", String.valueOf(mDelayMillis));
+        }
+
+        StackTraceElement[] stackTrace = new Throwable().getStackTrace();
+        EasyUtils.postDelayed(() -> {
+
+            if (!HttpLifecycleManager.isLifecycleActive(mLifecycleOwner)) {
+                // 宿主已被销毁，请求无法进行
+                EasyLog.printLog(this, "LifecycleOwner has been destroyed and the request cannot be made");
+                return;
+            }
+            EasyLog.printStackTrace(this, stackTrace);
+
+            mCallProxy = new CallProxy(createCall(obj));
+            new NormalCallback(this)
+                    .setListener(listener)
+                    .setCall(mCallProxy)
+                    .start();
+
+        }, mDelayMillis);
+    }
+
 
     /**
      * 执行同步请求
