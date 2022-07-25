@@ -1,29 +1,6 @@
-src/main/java/com/xxx/commonservice/service/
-target/
-out/
-!.mvn/wrapper/maven-wrapper.jar
-classes/
-*.depend
-src/main/java/com/xxx/commonservice/service/*
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-nbproject/private/
+.idea/
+.gradle/
 build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-/.idea/
+obj/
+*.iml
+local.properties
